@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/res/fonts.dart';
 import 'package:movie_app/core/services/injection_container.dart';
+import 'package:movie_app/core/services/routes.dart';
 import 'package:movie_app/features/daily_news/domain/usecase/get_article.dart';
 import 'package:movie_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
+import 'package:movie_app/features/daily_news/presentation/pages/article_details/article_details.dart';
 import 'package:movie_app/features/daily_news/presentation/pages/home/daily_news.dart';
+import 'package:movie_app/features/daily_news/presentation/pages/saved_article/saved_article.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +36,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
         home: const DailyNews(),
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
       ),
     );
   }

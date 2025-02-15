@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/common/widgets/article_tile.dart';
+import 'package:movie_app/features/daily_news/domain/entities/article.dart';
 import 'package:movie_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 
 class DailyNews extends StatelessWidget {
@@ -26,7 +27,11 @@ class DailyNews extends StatelessWidget {
             return ListView.builder(
               itemCount: state.articles.length,
               itemBuilder: (context, index) {
-                return ArticleTile(article: state.articles![index]);
+                return ArticleTile(
+                  article: state.articles![index],
+                  onArticlePressed: (article) =>
+                      _onArticlePressed(context, article),
+                );
               },
             );
           } else if (state is RemoteArticleErrorState) {
@@ -40,6 +45,18 @@ class DailyNews extends StatelessWidget {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _onShowSavedArticlesViewTapped(context),
+        child: Icon(Icons.article_outlined),
+      ),
     );
+  }
+
+  void _onArticlePressed(BuildContext context, ArticleEntity article) {
+    Navigator.pushNamed(context, '/ArticleDetails', arguments: article);
+  }
+
+  void _onShowSavedArticlesViewTapped(BuildContext context) {
+    Navigator.pushNamed(context, '/SavedArticles');
   }
 }
